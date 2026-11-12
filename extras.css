@@ -1,0 +1,194 @@
+/* =====================================================================
+   Salary Calculator - EXTRAS styles
+   Password windows, backup buttons, and the r1 compact layout.
+   Everything for the r1 is under body.compact, so the desktop look is unchanged.
+   ===================================================================== */
+
+/* ---------- Password / message windows ---------- */
+.x-modal {
+    position: fixed; inset: 0; z-index: 10000;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0, 0, 0, 0.55); padding: 12px;
+}
+.x-modal-content {
+    background: #fff; border-radius: 10px; padding: 18px 20px;
+    width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: grid; gap: 8px;
+}
+.x-modal-content h3 { margin: 0 0 4px; }
+.x-message { font-size: 0.9em; color: #444; line-height: 1.45; }
+.x-error { color: #c62828; font-size: 0.85em; margin: 0; font-weight: bold; }
+.x-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; }
+.x-actions button { margin: 0; }
+.x-wide { width: 100%; max-width: none !important; margin: 6px 0 0 !important; }
+.x-divider { display: flex; align-items: center; gap: 8px; color: #888; font-size: 0.85em; margin: 12px 0 2px; }
+.x-divider::before, .x-divider::after { content: ''; flex: 1; border-top: 1px solid #ddd; }
+.x-setup { display: grid; gap: 6px; }
+.x-layout { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 6px; }
+.x-layout label { white-space: nowrap; }
+.x-layout select { width: auto; }
+
+/* ---------- Voice status ---------- */
+.x-voice {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+    z-index: 10001; max-width: 92vw;
+    padding: 8px 14px; border-radius: 999px;
+    background: #222; color: #fff; font-weight: bold; font-size: 0.9em; text-align: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.15s;
+}
+.x-voice.show { opacity: 1; }
+.x-voice.listening { background: #d32f2f; }
+.x-voice.listening::before { content: '● '; }
+.x-voice.working { background: #1a73e8; }
+.x-voice.done { background: #2e7d32; }
+.x-voice.error { background: #b45309; }
+
+#xNav { display: none; }
+
+/* =====================================================================
+   r1 COMPACT LAYOUT (240 x 282): one section at a time + tab bar
+   ===================================================================== */
+body.compact {
+    font-size: 11px;
+    height: 100vh; height: 100dvh;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+}
+/* The page itself can't scroll on the r1: the content area scrolls instead */
+body.compact .container {
+    flex: 1 1 auto; min-height: 0;
+    width: 100%; max-width: 100vw; margin: 0; padding: 4px;
+    overflow-y: auto; overflow-x: hidden;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+}
+body.compact header { display: none; }
+
+/* Only the chosen section is shown */
+body.compact [data-view] { display: none !important; }
+body.compact[data-cv="pay"] [data-view="pay"],
+body.compact[data-cv="results"] [data-view="results"],
+body.compact[data-cv="people"] [data-view="people"],
+body.compact[data-cv="reports"] [data-view="reports"],
+body.compact[data-cv="more"] [data-view="more"] { display: block !important; }
+body.compact .top-section, body.compact .bottom-section { display: block; margin: 0; }
+
+/* Tab bar */
+body.compact #xNav {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    flex: none; height: 38px;
+    background: #fff; border-top: 1px solid #ddd; z-index: 2500;
+}
+body.compact #xNav button {
+    all: unset; display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: bold; color: #666; cursor: pointer;
+}
+body.compact #xNav button.active { color: #1a73e8; background: #e8f0fe; box-shadow: inset 0 3px 0 #1a73e8; }
+
+/* Cards */
+body.compact .card { padding: 6px 7px; margin: 0 0 6px; border-left-width: 3px; border-radius: 6px; box-shadow: none; }
+body.compact .card:hover { box-shadow: none; }
+body.compact h3 { font-size: 12px; margin-bottom: 4px; }
+body.compact h4 { font-size: 11px; margin: 6px 0 3px; }
+
+/* Forms: small but still easy to tap */
+body.compact form { gap: 3px; }
+body.compact label { font-size: 10px; }
+body.compact input, body.compact select, body.compact textarea {
+    font-size: 12px; height: 28px; padding: 2px 6px; box-sizing: border-box; margin: 0;
+}
+body.compact input[type="checkbox"] { height: auto; width: auto; }
+body.compact .field-hint { font-size: 9px; }
+body.compact .employee-details { font-size: 10px; margin-top: 2px; }
+
+/* Hours / Minutes / Rate side by side */
+body.compact .pay-rate {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto; grid-auto-flow: column; gap: 1px 4px; margin-bottom: 3px;
+}
+body.compact .pay-rate h4, body.compact .pay-rate hr { grid-column: 1 / -1; }
+
+/* Buttons: full width, same height */
+body.compact button, body.compact .btn-primary, body.compact .btn-secondary, body.compact .btn-danger {
+    width: 100%; max-width: none; min-width: 0;
+    height: 30px; padding: 0 6px; margin: 2px 0; font-size: 11px;
+}
+body.compact .form-actions, body.compact .button-group { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 4px; padding: 0; }
+body.compact .form-actions button { margin: 0; }
+body.compact #addUpdateEmployeeButton font { font-size: 10px; }
+body.compact #addUpdateEmployeeButton br { display: none; }
+body.compact .icon-button { width: auto; height: 22px; }
+body.compact .checkbox-label { margin: 3px 0; font-size: 10px; white-space: normal; }
+
+/* Results */
+body.compact .results-card { font-size: 11px; }
+body.compact .highlight-gross-pay, body.compact .highlight-total-deductions { font-size: 12px; }
+body.compact .highlight-net-pay { font-size: 14px; }
+
+/* People: pay history table scrolls in its own short box, headings pinned */
+body.compact #weeklyInfoSection { height: auto; padding: 6px 7px; }
+body.compact #weeklyInfoSection h3 { margin-bottom: 4px; }
+body.compact #employeeSelector { padding: 2px 6px; margin-bottom: 4px; }
+body.compact .table-responsive { max-height: 150px; overflow: auto; margin-bottom: 4px; border: 1px solid #ddd; }
+body.compact table { font-size: 9.5px; }
+body.compact th, body.compact td { padding: 3px 4px; white-space: nowrap; }
+body.compact #weeklyInfoTable th { position: sticky; top: 0; z-index: 2; }
+body.compact #weeklyInfoTable td:first-child, body.compact #weeklyInfoTable th:first-child {
+    position: sticky; left: 0; background: #fff; z-index: 1; box-shadow: 1px 0 0 #ddd;
+}
+body.compact #weeklyInfoTable th:first-child { z-index: 3; background: #f2f2f2; }
+body.compact .employee-images { gap: 4px; margin-top: 4px; }
+body.compact .image-container { height: 70px; }
+/* Pictures can't be added on the r1 (no files): hide the drop zones */
+body.compact .image-upload-container { display: none; }
+body.compact .active-manager { padding: 4px 6px; }
+body.compact .active-employee-list { max-height: 120px; }
+body.compact .active-row { padding: 3px 6px; }
+
+/* Reports */
+body.compact .accounting-totals-card { margin-top: 0; padding: 6px 7px; }
+body.compact .accounting-totals-card select, body.compact .accounting-totals-card input[type="date"] { padding: 2px 6px; margin-bottom: 3px; }
+body.compact .date-range-picker { display: grid; grid-template-columns: auto 1fr; gap: 2px 4px; align-items: center; margin-bottom: 4px; }
+body.compact .date-range-picker label { margin: 0; }
+body.compact #accountingTotals { max-height: 150px; padding: 4px 6px; margin-top: 4px; }
+body.compact #accountingTotals p { margin: 2px 0; }
+body.compact #ytdGraph { max-height: 160px; }
+body.compact #calculateAccountingTotals, body.compact #exportAccountingTotals { padding: 0; margin-top: 3px; }
+
+/* More (footer) */
+body.compact footer { display: block; margin: 0; }
+body.compact footer > * { margin-bottom: 4px; }
+body.compact .backup-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+body.compact #backupDataButton, body.compact #restoreDataButton { padding: 0; margin: 0; }
+body.compact .backup-status, body.compact .x-layout, body.compact #backupReminderBanner { grid-column: 1 / -1; font-size: 10px; }
+body.compact .x-layout select { width: auto; height: 26px; }
+body.compact #userManager input, body.compact #userManager select { margin-bottom: 3px; }
+
+/* Pop-up windows fill the screen */
+body.compact .paystub-modal-content {
+    width: 100%; max-width: none; height: 100%; max-height: none;
+    margin: 0; padding: 26px 6px 6px; border-radius: 0; border: none; box-sizing: border-box;
+}
+body.compact .stub-container { max-width: none; margin: 0; padding: 6px; font-size: 10px; }
+body.compact .stub-body { font-size: 10px; }
+body.compact .stub-logo { width: 70px; }
+body.compact .net-pay-amount { font-size: 15px; }
+body.compact .pay-section, body.compact .deductions-section, body.compact .netpay-section { margin: 5px 0; padding: 4px; }
+body.compact .paystub-close-button { top: 2px; right: 8px; font-size: 24px; }
+body.compact #loginModal .modal-content { margin: 4px auto; width: 96%; padding: 10px; box-sizing: border-box; }
+body.compact #loginModal .modal-content label, body.compact #loginModal .modal-content input,
+body.compact #loginModal .modal-content select { display: block; width: 100%; margin-bottom: 4px; }
+body.compact .x-modal { padding: 0; align-items: stretch; }
+body.compact .x-modal-content { max-width: none; max-height: none; border-radius: 0; padding: 10px; font-size: 11px; }
+body.compact .x-actions { display: grid; grid-template-columns: 1fr 1fr; }
+body.compact .pdf-popup-content { width: 100%; height: 100%; margin: 0; padding: 26px 4px 4px; border-radius: 0; box-sizing: border-box; }
+
+/* Messages sit just above the tab bar */
+body.compact .toast { top: 3px; bottom: auto; left: 3px; right: 3px; transform: none; max-width: none; font-size: 10px; padding: 5px 8px; border-radius: 6px; box-sizing: border-box; }
+body.compact .x-voice { bottom: 44px; font-size: 11px; padding: 6px 10px; border-radius: 8px; }
+/* Windows sit above the tab bar */
+body.compact #loginModal, body.compact .pdf-popup { z-index: 3000; }
+body.compact #loginModal { overflow-y: auto; }
+body.compact #accountingTotals:empty { display: none; }
+body.compact .toast { z-index: 4000; }

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Install La Casa Salary on r1</title>
+<script src="qrcode.js"></script>
+<style>
+body{font-family:Arial,sans-serif;background:#f0f2f5;margin:0;padding:16px;color:#222;text-align:center}
+.card{max-width:460px;margin:0 auto;background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+h1{font-size:22px;color:#1a73e8;margin:0 0 8px}#qr img{width:280px;height:280px;image-rendering:pixelated}
+ol{text-align:left;font-size:14px;line-height:1.5}code{background:#eee;padding:2px 4px;border-radius:3px;word-break:break-all}
+</style></head><body><div class="card">
+<h1>La Casa Salary — r1 install</h1>
+<p>Scan this code with your rabbit r1 to add the salary calculator as a creation.</p>
+<div id="qr"></div>
+<p><small>App address: <code id="u"></code></small></p>
+<ol>
+<li>On the r1, open the camera/QR scanner (creations → add).</li>
+<li>Point it at the code above and confirm.</li>
+<li>Open “La Casa Salary”. On a new device, create the admin password, or tap <b>🔒 Load encrypted backup from website</b>.</li>
+<li>Hold the side button and speak to fill the selected box. Scroll wheel scrolls; a short press moves to the next box.</li>
+</ol></div>
+<script>
+var base=location.href.replace(/install\.html.*$/,'').replace(/[?#].*$/,'');
+var app=base+'index.html?v='+Date.now();
+var payload=JSON.stringify({title:'La Casa Salary',url:app,description:'Salary calculator with voice entry',iconUrl:base+'logo.png',themeColor:'#1a73e8'});
+var q=qrcode(0,'M');q.addData(payload);q.make();
+document.getElementById('qr').innerHTML=q.createImgTag(6,8);
+document.getElementById('u').textContent=app;
+</script></body></html>
