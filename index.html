@@ -6,6 +6,7 @@
     <title>La Casa De Los Trucos - Salary Calculator</title>
     <link rel="stylesheet" href="styles.css?v=1">
     <link rel="stylesheet" href="extras.css?v=1">
+    <link rel="stylesheet" href="cloud-sync.css?v=1">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
 </head>
@@ -278,9 +279,15 @@
     <div class="spinner"></div>
     <div class="loading-text">Loading...</div>
 </div>
-    <script src="script.js?v=1"></script>
+    <script src="script.js?v=2"></script>
     <!-- r1 layout, voice input, encrypted backups, first-time setup -->
-    <script src="extras.js?v=1"></script>
+    <script src="extras.js?v=2"></script>
+    <!-- Cloud sync (Firebase): keeps the data the same on all your devices -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js?v=1"></script>
+    <script src="cloud-sync.js?v=1"></script>
     <!-- html2canvas (screenshots HTML to image) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 

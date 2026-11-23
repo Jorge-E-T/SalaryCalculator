@@ -1,0 +1,36 @@
+/* =====================================================================
+   Salary Calculator - CLOUD SYNC styles
+   ===================================================================== */
+.cloud-pill {
+    all: unset; position: fixed; top: 10px; right: 10px; z-index: 2400;
+    padding: 4px 10px; border-radius: 999px; cursor: pointer;
+    font: bold 12px Arial, sans-serif; color: #fff; background: #6c757d;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); white-space: nowrap;
+}
+.cloud-pill[hidden] { display: none; }
+.cloud-pill.ok { background: #2e7d32; }
+.cloud-pill.busy { background: #1a73e8; }
+.cloud-pill.warn { background: #b45309; }
+.cloud-pill.bad { background: #c62828; }
+
+.cloud-card { margin-top: 10px; }
+.cloud-card h3 { margin-bottom: 6px; }
+.cloud-status { margin: 4px 0; }
+.cloud-status span { font-size: 0.9em; color: #555; }
+.cloud-status.ok b { color: #2e7d32; }
+.cloud-status.warn b { color: #b45309; }
+.cloud-status.bad b { color: #c62828; }
+.cloud-status.busy b { color: #1a73e8; }
+.cloud-card code { background: #eee; padding: 1px 4px; border-radius: 3px; }
+.cloud-actions { justify-content: flex-start; gap: 8px; margin-top: 6px; }
+.cloud-login-extra .field-hint { display: block; margin-top: 4px; }
+.cloud-login-note { color: #1a73e8 !important; font-weight: bold !important; }
+.cloud-modal { z-index: 10002; }
+.cloud-modal .x-actions { flex-wrap: wrap; }
+
+/* r1 compact layout */
+body.compact .cloud-pill { top: 3px; right: 3px; padding: 2px 7px; font-size: 9px; }
+body.compact .cloud-card { margin: 0 0 6px; }
+body.compact .cloud-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+body.compact .cloud-modal .x-actions { display: grid; grid-template-columns: 1fr; }
+body.compact .toast { top: 22px; }

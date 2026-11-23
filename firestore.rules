@@ -1,0 +1,36 @@
+rules_version = '2';
+
+// Salary Calculator - Firestore security rules
+// Copy everything in this file into: Firebase console -> Firestore Database -> Rules -> Publish
+//
+// Only the cloud accounts (e-mails) listed below can read or write anything.
+// Put YOUR e-mail(s) in the list, in lowercase, exactly as you created them under Authentication.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function allowed() {
+      return request.auth != null
+        && request.auth.token.email != null
+        && request.auth.token.email.lower() in [
+             'your-email@example.com'
+             // , 'second-person@example.com'
+           ];
+    }
+
+    function syncedCollection(c) {
+      return c in ['employees', 'payRecords', 'images', 'appUsers'];
+    }
+
+    function validDoc() {
+      return request.resource.data.keys().hasOnly(['json', 'deleted', 'at', 'by', 'label'])
+        && request.resource.data.deleted is bool
+        && request.resource.data.at == request.time;
+    }
+
+    match /{collection}/{docId} {
+      allow read: if allowed() && syncedCollection(collection);
+      allow create, update: if allowed() && syncedCollection(collection) && validDoc();
+      allow delete: if false;   // the program never hard-deletes; it leaves a "deleted" marker instead
+    }
+  }
+}
